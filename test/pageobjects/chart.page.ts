@@ -1,5 +1,5 @@
 import Page from './page';
-
+const sharp = require('sharp');
 /**
  * sub page containing specific selectors and methods for a specific page
  */
@@ -20,7 +20,20 @@ class ChartPage extends Page {
         
         // Get the dimensions of the element
         const element = await (this.chartDisplay);
-        await element.saveScreenshot("element-screenshot.png");
+        const base64Image = await element.takeElementScreenshot(element.elementId);
+        
+        // Convert base64 screenshot data to a buffer
+        const screenshotBuffer = Buffer.from(base64Image, 'base64');
+
+        // Resize the image using sharp
+        sharp(screenshotBuffer).resize(800, 600, {fit: 'inside'}).sharpen().toFile('resized_image.png', (err: any, info: any) => {
+            if (err) {
+                console.error('Error occurred:', err);
+            } else {
+                console.log('Image resized successfully.');
+                console.log('Output:', info);
+            }
+        });
     }
 
     /**
