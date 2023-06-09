@@ -1,3 +1,6 @@
+# Custom
+*.png
+
 # Logs
 logs
 *.log
