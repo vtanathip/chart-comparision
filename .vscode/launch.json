@@ -5,6 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Test config",
+            "program": "${workspaceFolder}/dist/test/specs/config.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
             "name": "run all spec",
             "type": "node",
             "request": "launch",
