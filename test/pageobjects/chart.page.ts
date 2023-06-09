@@ -17,6 +17,10 @@ class ChartPage extends Page {
      */
     public async captureChartToImage () {
         await (await this.chartDisplay).waitForClickable({timeout:30000}).then(async () => {await (await this.chartDisplay).doubleClick()});
+        
+        // Get the dimensions of the element
+        const element = await (this.chartDisplay);
+        await element.saveScreenshot("element-screenshot.png");
     }
 
     /**
