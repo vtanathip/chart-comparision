@@ -5,16 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "run all spec",
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "args": ["wdio.conf.ts"],
+            "cwd": "${workspaceFolder}",
+            "autoAttachChildProcesses": true,
+            "program": "${workspaceRoot}/node_modules/@wdio/cli/bin/wdio.js",
+            "console": "integratedTerminal",
             "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}\\dist\\simple-helloworold.js",
-            "outFiles": [
-                "${workspaceFolder}/**/*.js"
+                "${workspaceFolder}/node_modules/**/*.js",
+                "${workspaceFolder}/lib/**/*.js",
+                "<node_internals>/**/*.js"
             ]
-        }
+        },
     ]
 }
