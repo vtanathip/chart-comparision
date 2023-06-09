@@ -1,3 +1,4 @@
+import ChartPage from '../pageobjects/chart.page';
 import LoginPage from '../pageobjects/login.page'
 import UserPage from '../pageobjects/user.page'
 const config = require('config');
@@ -9,10 +10,12 @@ describe('My Login application', () => {
         await LoginPage.open()
         await LoginPage.maximize()
         await LoginPage.login(username, password);
-        
+
         await UserPage.checkTitle()
         await UserPage.openUserProfile()
         await UserPage.redirectToSuperChart()
+
+        await ChartPage.captureChartToImage()
     })
 })
 
