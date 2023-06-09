@@ -1,5 +1,3 @@
-import { ChainablePromiseElement } from 'webdriverio';
-
 import Page from './page';
 
 /**
@@ -10,15 +8,27 @@ class LoginPage extends Page {
      * define selectors using getter methods
      */
     public get inputUsername () {
-        return $('#username');
+        return $('input[id="id_username"]');
     }
 
     public get inputPassword () {
-        return $('#password');
+        return $('input[id="id_password"]');
     }
 
-    public get btnSubmit () {
-        return $('button[type="submit"]');
+    public get btnUserSetting () {
+        return $('.tv-header__inner > .tv-header__area--user > button:first-child');
+    }
+
+    public get btnSignin () {
+        return $('button[data-name="header-user-menu-sign-in"]');
+    }
+
+    public get btnSigninWithEmail () {
+        return $('button[name="Email"]')
+    }
+
+    public get btnSubmitSignin () {
+        return $('button[class*="submit"]')
     }
 
     /**
@@ -26,16 +36,23 @@ class LoginPage extends Page {
      * e.g. to login using username and password
      */
     public async login (username: string, password: string) {
-        await this.inputUsername.setValue(username);
-        await this.inputPassword.setValue(password);
-        await this.btnSubmit.click();
+        await (await this.btnUserSetting).waitForExist({ timeout: 30000 }).then(async()=>{await this.btnUserSetting.click()});
+        await (await this.btnSignin).waitForExist({ timeout: 30000 }).then(async ()=>{await this.btnSignin.click()});
+        await (await this.btnSigninWithEmail).waitForExist({ timeout: 30000 }).then(async ()=>{await this.btnSigninWithEmail.click()});
+        await (await this.inputUsername).setValue(username);
+        await (await this.inputPassword).setValue(password);
+        await (await this.btnSubmitSignin).waitForExist({ timeout: 30000 }).then(async ()=>{ await this.btnSubmitSignin.click()});
     }
 
     /**
      * overwrite specific options to adapt it to page object
      */
     public open () {
-        return super.open('login');
+        return super.open();
+    }
+
+    public maximize(): void {
+        super.maximize();
     }
 }
 
