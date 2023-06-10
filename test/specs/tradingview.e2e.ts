@@ -1,3 +1,4 @@
+import { LooksSameResult } from 'looks-same';
 import ChartPage from '../pageobjects/chart.page';
 import LoginPage from '../pageobjects/login.page'
 import UserPage from '../pageobjects/user.page'
@@ -16,6 +17,8 @@ describe('My Login application', () => {
         await UserPage.redirectToSuperChart()
 
         await ChartPage.captureChartToImage()
+        const result:LooksSameResult = await ChartPage.performImageComparison('resized_image.png')
+        await expect(result.equal).toBe(true)
     })
 })
 

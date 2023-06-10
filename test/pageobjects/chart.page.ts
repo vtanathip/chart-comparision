@@ -1,5 +1,8 @@
 import Page from './page';
 const sharp = require('sharp');
+const rootDirectory = process.cwd();
+import looksSame from 'looks-same';
+
 /**
  * sub page containing specific selectors and methods for a specific page
  */
@@ -16,7 +19,7 @@ class ChartPage extends Page {
      * e.g. to login using username and password
      */
     public async captureChartToImage () {
-        await (await this.chartDisplay).waitForClickable({timeout:30000}).then(async () => {await (await this.chartDisplay).doubleClick()});
+        await (await this.chartDisplay).waitForClickable({timeout:30000});
         
         // Get the dimensions of the element
         const element = await (this.chartDisplay);
@@ -26,7 +29,7 @@ class ChartPage extends Page {
         const screenshotBuffer = Buffer.from(base64Image, 'base64');
 
         // Resize the image using sharp
-        sharp(screenshotBuffer).resize(800, 600, {fit: 'inside'}).sharpen().toFile('resized_image.png', (err: any, info: any) => {
+        sharp(screenshotBuffer).resize(800, 600, {fit: 'inside'}).sharpen().toFile(`${rootDirectory}\\data\\resized_image.png`, (err: any, info: any) => {
             if (err) {
                 console.error('Error occurred:', err);
             } else {
@@ -34,6 +37,17 @@ class ChartPage extends Page {
                 console.log('Output:', info);
             }
         });
+    }
+
+    public async performImageComparison(compareImageName: string): Promise<looksSame.LooksSameResult> {
+        const baseImage = `${rootDirectory}\\data\\base_image.png`;
+        const compareImage = `${rootDirectory}\\data\\${compareImageName}`;
+        // Options for image comparison (optional)
+        const comparisonOptions = {
+            tolerance: 5, // Allowable pixel difference (0-100)
+            ignoreAntialiasing: true, // Ignore antialiasing differences
+        };
+        return await looksSame(baseImage, compareImage, {strict: true});
     }
 
     /**

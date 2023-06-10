@@ -23,6 +23,7 @@
     "chromedriver": "^114.0.1",
     "config": "^3.3.9",
     "copyfiles": "^2.4.1",
+    "looks-same": "^8.1.0",
     "mocha": "^10.2.0",
     "rimraf": "^5.0.1",
     "sharp": "^0.32.1",
