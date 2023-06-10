@@ -17,12 +17,15 @@ describe('Tradingview Chart Comparision', () => {
         await UserPage.redirectToSuperChart()
 
         await ChartPage.captureChartToImage()
-        const result:LooksSameResult = await ChartPage.performImageComparison('baseImage.png','resizedImage.png')
+        const result:LooksSameResult = await ChartPage.performImageComparison('baseImage.png','compareImage.png')
         await expect(result.equal).toBe(false)
+        if(!result.equal){
+            await ChartPage.createDifferenceImage('baseImage.png','compareImage.png');
+        }
     })
 
     it('[DUMMY] should pass compare image', async () => {
-        const result:LooksSameResult = await ChartPage.performImageComparison('fakeBaseImage.jpg','fakeResizedImage.jpg')
+        const result:LooksSameResult = await ChartPage.performImageComparison('fakeBaseImage.png','fakeCompareImage.png')
         await expect(result.equal).toBe(true)
     })
 })

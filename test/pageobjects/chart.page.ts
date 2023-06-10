@@ -29,7 +29,7 @@ class ChartPage extends Page {
         const screenshotBuffer = Buffer.from(base64Image, 'base64');
 
         // Resize the image using sharp
-        sharp(screenshotBuffer).resize(800, 600, {fit: 'inside'}).sharpen().toFile(`${rootDirectory}\\data\\resized_image.png`, (err: any, info: any) => {
+        sharp(screenshotBuffer).resize(800, 600, {fit: 'inside'}).sharpen().toFile(`${rootDirectory}\\data\\compareImage.png`, (err: any, info: any) => {
             if (err) {
                 console.error('Error occurred:', err);
             } else {
@@ -48,6 +48,23 @@ class ChartPage extends Page {
             ignoreAntialiasing: true, // Ignore antialiasing differences
         };
         return await looksSame(baseImage, compareImage, {strict: true});
+    }
+
+    public async createDifferenceImage(compareBaseImageName:string, compareImageName: string):Promise<void>{
+        const baseImage = `${rootDirectory}\\data\\${compareBaseImageName}`;
+        const compareImage = `${rootDirectory}\\data\\${compareImageName}`;
+        const diffImage = `${rootDirectory}\\data\\diffImage.png`;
+        await looksSame.createDiff({
+            reference: baseImage,
+            current: compareImage,
+            diff: diffImage,
+            highlightColor: '#ff0000', // color to highlight the differences
+            strict: false, // strict comparsion
+            tolerance: 0.5,
+            antialiasingTolerance: 0,
+            ignoreAntialiasing: true, // ignore antialising by default
+            ignoreCaret: true // ignore caret by default
+        });
     }
 
     /**
