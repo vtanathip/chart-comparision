@@ -6,8 +6,8 @@ const config = require('config');
 const username = config.get('tradingview.username');
 const password = config.get('tradingview.password');
 
-describe('My Login application', () => {
-    it('should login with valid credentials', async () => {
+describe('Tradingview Chart Comparision', () => {
+    it('False postive test case for compare real graph', async () => {
         await LoginPage.open()
         await LoginPage.maximize()
         await LoginPage.login(username, password);
@@ -17,7 +17,12 @@ describe('My Login application', () => {
         await UserPage.redirectToSuperChart()
 
         await ChartPage.captureChartToImage()
-        const result:LooksSameResult = await ChartPage.performImageComparison('resized_image.png')
+        const result:LooksSameResult = await ChartPage.performImageComparison('baseImage.png','resizedImage.png')
+        await expect(result.equal).toBe(false)
+    })
+
+    it('[DUMMY] should pass compare image', async () => {
+        const result:LooksSameResult = await ChartPage.performImageComparison('fakeBaseImage.jpg','fakeResizedImage.jpg')
         await expect(result.equal).toBe(true)
     })
 })

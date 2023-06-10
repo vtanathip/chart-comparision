@@ -39,8 +39,8 @@ class ChartPage extends Page {
         });
     }
 
-    public async performImageComparison(compareImageName: string): Promise<looksSame.LooksSameResult> {
-        const baseImage = `${rootDirectory}\\data\\base_image.png`;
+    public async performImageComparison(compareBaseImageName:string, compareImageName: string): Promise<looksSame.LooksSameResult> {
+        const baseImage = `${rootDirectory}\\data\\${compareBaseImageName}`;
         const compareImage = `${rootDirectory}\\data\\${compareImageName}`;
         // Options for image comparison (optional)
         const comparisonOptions = {
