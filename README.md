@@ -9,6 +9,10 @@ The test chart application has many test scenarios that can happen with one char
 - [Look same](https://www.npmjs.com/package/looks-same) for compare image and create different image
 - [Sharp](https://www.npmjs.com/package/sharp) for manipulate image e.g. resizing
 
+## Prerequisite
+
+- Need to add base image and compare image by yourself
+
 ## How to run
 
 - `npm install`
