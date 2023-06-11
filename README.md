@@ -11,7 +11,9 @@ The test chart application has many test scenarios that can happen with one char
 
 ## Prerequisite
 
-- Need to add base image and compare image by yourself
+- Create folder `data`
+- Add `baseImage.png` by yourself for testing
+- Add `fakeBaseImage.png` and `fakeCompareImage.png` for positive test
 
 ## How to run
 
